@@ -12,7 +12,7 @@ Number_format: 18 decimals
 
 | Request  | URL  |  Method |   
 |---|---|---|
-| Available Balanc               | [/cosmos/bank/v1beta1/balances/{address}/by_denom](https://dydx-rest.publicnode.com/swagger/#/Query/Balance)                                                  | GET | 
+| Available Balance               | [/cosmos/bank/v1beta1/balances/{address}/by_denom](https://dydx-rest.publicnode.com/swagger/#/Query/Balance)                                                  | GET | 
 |  Staked Balance                | [/cosmos/staking/v1beta1/delegations/{delegator_addr}](https://dydx-rest.publicnode.com/swagger/#/Query/DelegatorDelegations)                                 | GET |
 | Rewards(to claim)              | [/cosmos/distribution/v1beta1/delegators/{delegator_address}/rewards](https://dydx-rest.publicnode.com/swagger/#/Query/DelegationTotalRewards)                | GET |
 | Unbonding                      | [/cosmos/staking/v1beta1/delegators/{delegator_addr}/unbonding_delegations](https://dydx-rest.publicnode.com/swagger/#/Query/DelegatorUnbondingDelegations)   | GET |   
