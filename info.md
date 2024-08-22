@@ -3,7 +3,8 @@
 Link: "https://dydx-rest.publicnode.com/swagger/"
       "https://docs.cosmos.network/main/build/building-modules/genesis"
 
-address test: dydx144lgmly4qlgnuftqw8z8lpf80ggdw4ju3e3mcx
+address delegator test: dydx144lgmly4qlgnuftqw8z8lpf80ggdw4ju3e3mcx
+adress validator test: dydxvaloper1rqhxemv6e5x43uny8qdyq78zneuk49pe5gkltz
 
 Token_Denom: adydx
 
