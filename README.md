@@ -55,3 +55,4 @@ Number_format: 18 decimals
 | Unbonding                      | [/cosmos/staking/v1beta1/delegators/{delegator_addr}/unbonding_delegations](https://dydx-rest.publicnode.com/swagger/#/Query/DelegatorUnbondingDelegations)   | GET |   
 | Delegators Validators          | [/cosmos/staking/v1beta1/delegators/{delegator_addr}/validators](https://dydx-rest.publicnode.com/swagger/#/Query/DelegatorValidators)                        | GET |  
 | Delegation for said validator  | [/cosmos/staking/v1beta1/validators/{validator_addr}/delegations/{delegator_addr}](https://dydx-rest.publicnode.com/swagger/#/Query/Delegation)               | GET |  
+| CommunityPool Balance          | [/cosmos/distribution/v1beta1/community_pool](https://dydx-rest.publicnode.com/swagger/#/Query/CommunityPool)                                                 | GET |  
