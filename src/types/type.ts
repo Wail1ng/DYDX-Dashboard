@@ -5,6 +5,17 @@ export type BalanceData = {
   };
 };
 
+export type AllBalanceData = {
+  balances: {
+    denom: string;
+    amount: string;
+  }[];
+  pagination: {
+    next_key: string;
+    total: string;
+  };
+};
+
 export type AddressWallet = {
   address: string;
 };

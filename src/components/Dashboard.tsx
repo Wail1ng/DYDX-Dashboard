@@ -6,6 +6,7 @@ import RewardsCard from "./RewardsCard";
 import UnbondingCard from "./UnbondingCard";
 import DelegatorCard from "./DelegatorCard";
 import DelegationCard from "./DelegationCard";
+import AllBalanceCard from "./AllBalanceCard";
 
 const Dashboard = ({ address }: { address: string }) => {
   return (
@@ -16,6 +17,7 @@ const Dashboard = ({ address }: { address: string }) => {
       <UnbondingCard delegator_address={address} />
       <DelegatorCard delegator_address={address} />
       <DelegationCard delegator_address={address} />
+      <AllBalanceCard delegator_address={address} />
     </div>
   );
 };
