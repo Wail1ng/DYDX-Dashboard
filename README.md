@@ -36,6 +36,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 Link:
 - "https://dydx-rest.publicnode.com/swagger/"
 - "https://docs.cosmos.network/main/build/building-modules/genesis"
+- "https://docs.keplr.app/api/#"
 
 address delegator test: **dydx144lgmly4qlgnuftqw8z8lpf80ggdw4ju3e3mcx**
 
