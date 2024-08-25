@@ -1,0 +1,21 @@
+meta {
+  name: Delegation
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{base_url}}/cosmos/staking/v1beta1/validators/{{validator_addr}}/delegations/{{delegator_addr}}
+  body: json
+  auth: none
+}
+
+vars:pre-request {
+  delegator_addr: dydx144lgmly4qlgnuftqw8z8lpf80ggdw4ju3e3mcx
+  validator_addr: dydxvaloper1rqhxemv6e5x43uny8qdyq78zneuk49pe5gkltz
+}
+
+assert {
+  res.status: eq 200
+  res.body: isJson
+}

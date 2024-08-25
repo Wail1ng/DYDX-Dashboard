@@ -1,22 +1,22 @@
-"use client"
-import { useEffect, useState } from "react"
+"use client";
+import { useState, useEffect } from "react";
+import { BalanceData } from "@/types/type";
 
-export function BalanceCard({address}) {
-console.log(address)
-const [data, setData] = useState(null);
+export const useBalanceData = (address: string, denom: string) => {
+  const [data, setData] = useState<BalanceData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
-useEffect(() => {
+
+  useEffect(() => {
     let isMounted = true;
 
     const fetchBalanceData = async () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `https://dydx-rest.publicnode.com/cosmos/bank/v1beta1/balances/${address}/by_denom?denom=adydx`
+          `https://dydx-rest.publicnode.com/cosmos/bank/v1beta1/balances/${address}/by_denom?denom=${denom}`
         );
         const result = await response.json();
-        console.log("result",result)
         if (isMounted) {
           setData(result);
           setError(null);
@@ -35,18 +35,12 @@ useEffect(() => {
       }
     };
 
-    // fetchBalanceData();
+    fetchBalanceData();
 
     return () => {
       isMounted = false;
     };
-})
-    return (
-        <div>
-            <h2>Balance: {}</h2>
-            <ul>
-                <li>address: {address}</li>
-            </ul>
-        </div>
-    )
-}
+  }, [address, denom]);
+
+  return { data, loading, error };
+};

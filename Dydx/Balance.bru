@@ -1,0 +1,24 @@
+meta {
+  name: Balance
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/cosmos/bank/v1beta1/balances/{{address}}/by_denom?denom=dydx
+  body: json
+  auth: none
+}
+
+params:query {
+  denom: dydx
+}
+
+vars:pre-request {
+  address: dydx144lgmly4qlgnuftqw8z8lpf80ggdw4ju3e3mcx
+}
+
+assert {
+  res.status: eq 200
+  res.body: isJson
+}
