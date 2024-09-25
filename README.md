@@ -37,6 +37,7 @@ Link:
 - "https://dydx-rest.publicnode.com/swagger/"
 - "https://docs.cosmos.network/main/build/building-modules/genesis"
 - "https://docs.keplr.app/api/#"
+- "https://docs.cosmostation.io/apis"
 
 address delegator test: **dydx144lgmly4qlgnuftqw8z8lpf80ggdw4ju3e3mcx**
 
