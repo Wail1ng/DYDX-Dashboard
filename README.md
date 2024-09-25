@@ -57,4 +57,5 @@ Number_format: 18 decimals
 | Delegators Validators          | [/cosmos/staking/v1beta1/delegators/{delegator_addr}/validators](https://dydx-rest.publicnode.com/swagger/#/Query/DelegatorValidators)                        | GET |  
 | Delegation for said validator  | [/cosmos/staking/v1beta1/validators/{validator_addr}/delegations/{delegator_addr}](https://dydx-rest.publicnode.com/swagger/#/Query/Delegation)               | GET |  
 | CommunityPool Balance          | [/cosmos/distribution/v1beta1/community_pool](https://dydx-rest.publicnode.com/swagger/#/Query/CommunityPool)                                                 | GET |  
-| Historical Balance             | [/v1/:network/accounts/:address/balances](https://apis.mintscan.io/)                                                                                          | GET |  
+| Historical Balance             | [/v1/:network/accounts/:address/balances](https://apis.mintscan.io/v1/:network/accounts/:address/balances)                                                    | GET |  
+| Account Transactions           | [/v1/:network/accounts/:address/transactions](https://apis.mintscan.io/v1/:network/accounts/:address/transactions)                                            | GET |  
