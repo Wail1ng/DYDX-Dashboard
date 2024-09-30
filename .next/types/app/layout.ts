@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // File: /Users/glory/Documents/Perso/DevPerso/Git/DYDX-Dashboard/src/app/layout.tsx
+=======
+// File: /Users/glory/Documents/DYDX-Dashboard/src/app/layout.tsx
+>>>>>>> origin/main
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
