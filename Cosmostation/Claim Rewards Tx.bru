@@ -1,0 +1,38 @@
+meta {
+  name: Claim Rewards Tx
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}/v1/dydx/tx-builder
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearer_token}}
+}
+
+body:json {
+  {
+    // Signer Address
+    "signer": "string",
+    // Tx Memo
+    "memo": "string",
+    // !!! When sending a transaction (tx) for the first time, must provide the public key
+    // pubkey type ("tendermint/PubKeySecp256k1" | "ethermint/PubKeyEthSecp256k1" | "injective/PubKeyEthSecp256k1")
+    "pubkey": [{"type": "string", "key": "string"}],
+    // Message Array
+    "messages": [
+      {
+        // Message Type
+        "type": "cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward",
+        // Sender Address
+        "delegatorAddress": "string",
+        // Validator Address to claim rewards
+        "validatorAddress"": string"
+      }
+    ]
+  }
+}

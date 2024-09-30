@@ -1,0 +1,15 @@
+meta {
+  name: Account Transactions
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/v1/dydx/accounts/{{address}}/transactions
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearer_token}}
+}
