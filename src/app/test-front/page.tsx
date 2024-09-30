@@ -17,7 +17,7 @@ export default function HomePage({
       <div className="z-10 w-full items-center justify-between font-mono text-sm lg:flex flex-col">
         <Search placeholder="Search address..." />
         <Suspense key={query}>
-          <Dashboard address={query} />
+          <DashboardTest address={query} />
         </Suspense>
       </div>
     </main>
