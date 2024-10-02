@@ -1,5 +1,6 @@
 "use client";
 import { useBalanceData } from "@/hooks/dydx/useBalanceData";
+import { formatNumber } from '@/lib/formater';
 
 export function BalanceCard({ address }: { address: string }) {
   const { data, loading, error } = useBalanceData(address, "dydx");
@@ -17,9 +18,7 @@ export function BalanceCard({ address }: { address: string }) {
         textAlign: "left",
       }}
     >
-      <h2>Balance Info</h2>
-      <p>Amount: {data?.balance?.amount}</p>
-      <p>Denom: {data?.balance?.denom}</p>
+      <li>Balance Info {formatNumber(data?.balance?.amount)} {data?.balance?.denom}</li>
     </div>
   );
 }

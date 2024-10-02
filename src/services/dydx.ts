@@ -23,7 +23,7 @@ export async function getBalanceData(address: string, denom: string) {
   const token = process.env.REACT_APP_COSMOSTATION_API_KEY
   try {
     const response = await fetch(
-      `${BASE_URL}/cosmos/bank/v1beta1/balances/${address}/by_denom?denom=${denom}`,
+      `${BASE_URL}/cosmos/bank/v1beta1/balances/${address}/by_denom?denom=adydx`,
       {
         headers: {
             'Content-Type': 'application/json',
