@@ -1,21 +1,21 @@
 "use client";
 import { useState, useEffect } from "react";
-import { AllBalanceData } from "@/types/type";
+import { DelegationData } from "@/types/type";
+import { getValidatorData } from "@/services/dydx";
 
-export const useAllBalanceData = (address: string) => {
-  const [data, setData] = useState<AllBalanceData | null>(null);
+export const useDelegationData = (delegator_address: string) => {
+  const validator_addr = "dydxvaloper1rqhxemv6e5x43uny8qdyq78zneuk49pe5gkltz"
+  const [data, setData] = useState<DelegationData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     let isMounted = true;
 
-    const fetchBalanceData = async () => {
+    const fetchDelegationData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          `https://dydx-rest.publicnode.com/cosmos/bank/v1beta1/balances/${address}`
-        );
+        const response = await getValidatorData(validator_addr, delegator_address);
         const result = await response.json();
         if (isMounted) {
           setData(result);
@@ -35,12 +35,12 @@ export const useAllBalanceData = (address: string) => {
       }
     };
 
-    fetchBalanceData();
+    fetchDelegationData();
 
     return () => {
       isMounted = false;
     };
-  }, [address]);
+  }, [delegator_address]);
 
   return { data, loading, error };
 };

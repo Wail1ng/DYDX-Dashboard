@@ -19,3 +19,4 @@ export async function getBalances(address: string, token: string) {
     throw error;
   }
 }
+

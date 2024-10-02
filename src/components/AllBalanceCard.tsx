@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useAllBalanceData } from "@/hooks/useAllBalanceData";
+import { useAllBalanceData } from "@/hooks/dydx/useAllBalanceData";
 
 export function RewardsCard({
   delegator_address,

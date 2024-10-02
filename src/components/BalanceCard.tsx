@@ -1,10 +1,8 @@
 "use client";
-import React from "react";
-import { useBalanceData } from "@/hooks/useBalanceData";
+import { useBalanceData } from "@/hooks/dydx/useBalanceData";
 
-// export function BalanceCard({ address }: AddressWallet) {
 export function BalanceCard({ address }: { address: string }) {
-  const { data, loading, error } = useBalanceData(address, "adydx");
+  const { data, loading, error } = useBalanceData(address, "dydx");
 
   if (loading) return <div>Chargement du solde...</div>;
   if (error)

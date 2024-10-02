@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import { useStakingData } from "../hooks/useStakingData";
+import { useStakingData } from "@/hooks/dydx/useStakingData";
 import { AddressWallet } from "@/types/type";
 import { stakingFormatter } from "@/utils/formatter";
+import { formatNumber } from "@/lib/formater";
 
 const StakingCard = ({ address }: AddressWallet) => {
   const { data, loading, error } = useStakingData(address);
@@ -27,12 +28,12 @@ const StakingCard = ({ address }: AddressWallet) => {
       }}
     >
       <h2>Staking Info</h2>
-      <p>Total Staked: {formattedData?.totalStaked}</p>
+      <p>Total Staked: {formatNumber(formattedData?.totalStaked)}</p>
       <ul>
         {formattedData?.validators.map((validator, index) => (
           <div key={index}>
             <li>Validator: {validator.validatorAddress}</li>
-            <li>Amount: {validator.amount}</li>
+            <li>Amount: {formatNumber(validator.amount)} DYDX</li>
           </div>
         ))}
       </ul>

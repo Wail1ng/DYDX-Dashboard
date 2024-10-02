@@ -1,19 +1,15 @@
 "use client";
 import React from "react";
-import { useDelegationData } from "@/hooks/useDelegationData";
+import { useDelegationData } from "@/hooks/dydx/useDelegationData";
 
 export function DelegationCard({
   delegator_address,
 }: {
   delegator_address: string;
 }) {
-  const { data, loading, error } = useDelegationData(delegator_address);
+  const { data, loading } = useDelegationData(delegator_address);
 
   if (loading) return <div>Chargement des délégations...</div>;
-  if (error)
-    return <div>Erreur lors du chargement des délégations: {error.message}</div>;
-
-  console.log('data', data);
 
   return (
     <div

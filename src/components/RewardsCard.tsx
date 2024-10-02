@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useRewardsData } from "@/hooks/useRewardsData";
+import { useRewardsData } from "@/hooks/dydx/useRewardsData";
 
 export function RewardsCard({
   delegator_address,

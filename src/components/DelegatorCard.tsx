@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useDelegatorData } from "@/hooks/useDelegatorData";
+import { useDelegatorData } from "@/hooks/dydx/useDelegatorData";
 
 export function DelegatorCard({
   delegator_address,
@@ -12,8 +12,6 @@ export function DelegatorCard({
   if (loading) return <div>Chargement des récompenses...</div>;
   if (error)
     return <div>Erreur lors du chargement des récompenses: {error.message}</div>;
-
-  console.log('data', data);
 
   return (
     <div

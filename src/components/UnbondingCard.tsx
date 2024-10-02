@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import { useUnbondingData } from "@/hooks/useUnbondingData";
-// import { UnbondingData } from "@/types/type";
+import { useUnbondingData } from "@/hooks/dydx/useUnbondingData";
 
 export type UnbondingData = {
   unbonding_responses: {
@@ -33,7 +32,6 @@ export function UnbondingCard({
   if (error)
     return <div>Erreur lors du chargement des récompenses: {error.message}</div>;
 
-  console.log('data', data);
 
   return (
     <div

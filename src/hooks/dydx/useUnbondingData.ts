@@ -1,21 +1,20 @@
 "use client";
 import { useState, useEffect } from "react";
-import { DelegatorData } from "@/types/type";
+import { UnbondingData } from "@/types/type";
+import { getUnbondingData } from "@/services/dydx";
 
-export const useDelegatorData = (delegator_address: string) => {
-  const [data, setData] = useState<DelegatorData | null>(null);
+export const useUnbondingData = (delegator_address: string) => {
+  const [data, setData] = useState<UnbondingData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     let isMounted = true;
 
-    const fetchDelegatorData = async () => {
+    const fetchUnbondingData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          `https://dydx-rest.publicnode.com/cosmos/staking/v1beta1/delegators/${delegator_address}/validators`
-        );
+        const response = await getUnbondingData(delegator_address);
         const result = await response.json();
         if (isMounted) {
           setData(result);
@@ -35,7 +34,7 @@ export const useDelegatorData = (delegator_address: string) => {
       }
     };
 
-    fetchDelegatorData();
+    fetchUnbondingData();
 
     return () => {
       isMounted = false;

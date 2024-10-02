@@ -1,9 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import { BalanceData } from "@/types/type";
+import { AllBalanceData } from "@/types/type";
+import { getAllBalanceData } from "@/services/dydx";
 
-export const useBalanceData = (address: string, denom: string) => {
-  const [data, setData] = useState<BalanceData | null>(null);
+export const useAllBalanceData = (address: string) => {
+  const [data, setData] = useState<AllBalanceData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -13,9 +14,7 @@ export const useBalanceData = (address: string, denom: string) => {
     const fetchBalanceData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          `https://dydx-rest.publicnode.com/cosmos/bank/v1beta1/balances/${address}/by_denom?denom=${denom}`
-        );
+        const response = await getAllBalanceData(address);
         const result = await response.json();
         if (isMounted) {
           setData(result);
@@ -40,7 +39,7 @@ export const useBalanceData = (address: string, denom: string) => {
     return () => {
       isMounted = false;
     };
-  }, [address, denom]);
+  }, [address]);
 
   return { data, loading, error };
 };

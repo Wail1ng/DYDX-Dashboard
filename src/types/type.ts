@@ -56,7 +56,6 @@ export type RewardsData = {
   }[];
 };
 
-// type this
 // {
 //   "unbonding_responses": [
 //     {
@@ -150,3 +149,23 @@ export type DelegationData = {
     };
   };
 };
+
+export interface FormattedStaking {
+  totalStaked: string;
+  validators: Array<{
+    validatorAddress: string;
+    amount: string;
+    shares: string;
+  }>;
+}
+export interface FormattedStaking {
+  totalStaked: number;
+  validators: Array<{
+    validatorAddress: string;
+    amount: string;
+  }>;
+}
+export interface FormattedBalance {
+  amount: string;
+  denom: string;
+}
