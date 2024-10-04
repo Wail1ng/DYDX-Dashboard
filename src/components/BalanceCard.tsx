@@ -1,13 +1,8 @@
-"use client";
-import { useBalanceData } from "@/hooks/dydx/useBalanceData";
-import { formatNumber } from '@/lib/formater';
+import { formatNumber } from '@/lib/formatter';
+import { getBalanceData } from "@/services/dydx";
 
-export function BalanceCard({ address }: { address: string }) {
-  const { data, loading, error } = useBalanceData(address, "dydx");
-
-  if (loading) return <div>Chargement du solde...</div>;
-  if (error)
-    return <div>Erreur lors du chargement du solde: {error.message}</div>;
+export async function BalanceCard({ address }: { address: string }) {
+  const data = await getBalanceData(address, "dydx");
 
   return (
     <div

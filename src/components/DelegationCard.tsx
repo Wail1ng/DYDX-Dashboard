@@ -1,15 +1,12 @@
-"use client";
 import React from "react";
-import { useDelegationData } from "@/hooks/dydx/useDelegationData";
+import { getValidatorData } from "@/services/dydx";
 
-export function DelegationCard({
+export async function DelegationCard({
   delegator_address,
 }: {
   delegator_address: string;
 }) {
-  const { data, loading } = useDelegationData(delegator_address);
-
-  if (loading) return <div>Chargement des délégations...</div>;
+  const data = await getValidatorData(delegator_address);
 
   return (
     <div

@@ -1,22 +1,12 @@
-"use client";
 import React from "react";
-import { useStakingData } from "@/hooks/dydx/useStakingData";
 import { AddressWallet } from "@/types/type";
-import { stakingFormatter } from "@/utils/formatter";
-import { formatNumber } from "@/lib/formater";
+import { stakingFormatter, formatNumber } from "@/lib/formatter";
+import { getStakingData } from "@/services/dydx";
 
-const StakingCard = ({ address }: AddressWallet) => {
-  const { data, loading, error } = useStakingData(address);
+const StakingCard = async ({ address }: AddressWallet) => {
+  let data = await getStakingData(address, "token");
 
   const formattedData = data ? stakingFormatter(data) : null;
-  if (loading) return <div>Chargement des données de staking...</div>;
-  if (error)
-    return (
-      <div>
-        Erreur lors du chargement des données de staking:{" "}
-        {(error as Error).message}
-      </div>
-    );
 
   return (
     <div
@@ -30,6 +20,7 @@ const StakingCard = ({ address }: AddressWallet) => {
       <h2>Staking Info</h2>
       <p>Total Staked: {formatNumber(formattedData?.totalStaked)}</p>
       <ul>
+        {/* @ts-ignore */}
         {formattedData?.validators.map((validator, index) => (
           <div key={index}>
             <li>Validator: {validator.validatorAddress}</li>

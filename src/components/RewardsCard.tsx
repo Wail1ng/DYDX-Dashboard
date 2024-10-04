@@ -1,18 +1,12 @@
-"use client";
 import React from "react";
-import { useRewardsData } from "@/hooks/dydx/useRewardsData";
+import { getRewardsData } from "@/services/dydx"
 
-export function RewardsCard({
+export async function RewardsCard({
   delegator_address,
 }: {
   delegator_address: string;
 }) {
-  const { data, loading, error } = useRewardsData(delegator_address);
-
-  if (loading) return <div>Chargement des récompenses...</div>;
-  if (error)
-    
-    return <div>Erreur lors du chargement des récompenses: {error.message}</div>;
+    const data = await getRewardsData(delegator_address);
 
   return (
     <div
@@ -24,9 +18,10 @@ export function RewardsCard({
       }}
     >
       <h2>Rewards Info</h2>
-      {data?.rewards.map((rewardData, index) => (
+      {data?.rewards.map((rewardData: any, index: number) => (
         <div key={index}>
           <p>Validator Address: {rewardData.validator_address}</p>
+          {/* @ts-ignore */}
           {rewardData.reward.map((reward, idx) => (
             <div key={idx}>
               <p>Amount: {reward.amount}</p>
@@ -36,6 +31,7 @@ export function RewardsCard({
         </div>
       ))}
       <h3>Total</h3>
+      {/* @ts-ignore */}
       {data?.total.map((total, index) => (
         <div key={index}>
           <p>Amount: {total.amount}</p>

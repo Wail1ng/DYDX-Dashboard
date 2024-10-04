@@ -1,17 +1,12 @@
-"use client";
 import React from "react";
-import { useDelegatorData } from "@/hooks/dydx/useDelegatorData";
+import { getDelegatorData } from "@/services/dydx";
 
-export function DelegatorCard({
+export async function DelegatorCard({
   delegator_address,
 }: {
   delegator_address: string;
 }) {
-  const { data, loading, error } = useDelegatorData(delegator_address);
-
-  if (loading) return <div>Chargement des récompenses...</div>;
-  if (error)
-    return <div>Erreur lors du chargement des récompenses: {error.message}</div>;
+  const data = await getDelegatorData(delegator_address);
 
   return (
     <div
@@ -23,7 +18,7 @@ export function DelegatorCard({
     }}
   >
     <h2>Delegator Info</h2>
-    {data?.validators.map((validator, index) => (
+    {data?.validators.map((validator: any, index: number) => (
       <div key={index}>
         <p>Validator Address: {validator.operator_address}</p>
         <p>Moniker: {validator.description.moniker}</p>

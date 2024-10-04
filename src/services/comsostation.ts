@@ -2,6 +2,8 @@ const BASE_URL = 'https://apis.mintscan.io/v1';
 
 export async function getBalances(address: string, token: string) {
   try {
+
+    await new Promise((resolve) => setTimeout(resolve, 3000));
    const response = await fetch(
     `${BASE_URL}/dydx/accounts/${address}/balances`,
     {

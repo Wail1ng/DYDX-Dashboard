@@ -1,5 +1,7 @@
-import { formatNumber } from '@/lib/formater';
+import { formatDYDX } from '@/lib/formatter';
 import { getBalances } from '@/services/comsostation';
+import { ComponentChart } from '@/components/Chart';
+import { formatDateToLocal } from '@/lib/utils';
 
 type CosmosInfoProps = {
   address: string;
@@ -20,39 +22,39 @@ function sumDelegations(balances: any[]) {
     };
   });
 }
+function transformBalancesToChartData(balances: any[]) {
+  return balances.map(balanceObj => {
+    const timestamp = balanceObj.timestamp;
 
-function formatDYDX(amount: number): string {
-  // Convertir de atto-DYDX (10^-18) à DYDX
-  const inDYDX = amount / 1e18;
-  // Utiliser Intl.NumberFormat pour un formatage propre
-  return new Intl.NumberFormat('fr-FR', {
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2
-  }).format(inDYDX) + ' DYDX';
+    // Sum up the delegation balances
+    let totalDelegation: number = balanceObj.delegation.reduce((sum: number, delegationItem: any) => {
+      const amount = parseFloat(delegationItem.balance.amount);
+      return sum + amount;
+    }, 0);
+    return {
+      timestamp: formatDateToLocal(timestamp),
+      totalDelegation:formatDYDX(totalDelegation)
+    };
+  });
 }
-
 
 export default async function CosmosInfo({ address }: CosmosInfoProps) {
 
-    const token = process.env.REACT_APP_COSMOSTATION_API_KEY
+    const token = process.env.REACT_APP_COSMOSTATION_API_KEY;
+    if (!token) {
+        throw new Error("REACT_APP_COSMOSTATION_API_KEY is not defined");
+    }
     const balances = await getBalances(address, token);
 
     const delegationSums = sumDelegations(balances.balances);
     const grandTotal = delegationSums.reduce((total, item) => total + item.totalDelegation, 0);
-    console.log('Somme totale de toutes les délégations:', formatNumber(grandTotal.toString()));
-
-    // delegationSums.forEach(item => {
-    //   console.log(`Timestamp: ${item.timestamp}, Délégation: ${formatDYDX(item.totalDelegation)}`);
-    // });
-    console.log('Total des délégations:', formatDYDX(grandTotal));
+    const chartData = transformBalancesToChartData(balances.balances);
 
     return (
       <div>
         <h1>Informations sur les balances</h1>
-        <ul>
-          {formatDYDX(grandTotal)}
-        </ul>
-        <ul> 
+          <ComponentChart chartData={chartData} />
+          <ul> 
           {delegationSums.map((delegationSum, index) => (
             <div key={index}>
               <li>Timestamp: {delegationSum.timestamp}</li>

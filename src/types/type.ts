@@ -1,6 +1,6 @@
 export type BalanceData = {
   balance: {
-    amount: number;
+    amount: string;
     denom: string;
   };
 };
@@ -156,13 +156,6 @@ export interface FormattedStaking {
     validatorAddress: string;
     amount: string;
     shares: string;
-  }>;
-}
-export interface FormattedStaking {
-  totalStaked: number;
-  validators: Array<{
-    validatorAddress: string;
-    amount: string;
   }>;
 }
 export interface FormattedBalance {

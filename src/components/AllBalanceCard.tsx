@@ -1,17 +1,12 @@
-"use client";
 import React from "react";
-import { useAllBalanceData } from "@/hooks/dydx/useAllBalanceData";
+import { getAllBalanceData } from "@/services/dydx";
 
-export function RewardsCard({
+export async function RewardsCard({
   delegator_address,
 }: {
   delegator_address: string;
 }) {
-  const { data, loading, error } = useAllBalanceData(delegator_address);
-
-  if (loading) return <div>Chargement des balances...</div>;
-  if (error)
-    return <div>Erreur lors du chargement des balances: {error.message}</div>;
+  const data = await getAllBalanceData(delegator_address);
 
   return (
     <div
@@ -23,7 +18,7 @@ export function RewardsCard({
       }}
     >
       <h2>All Balance Info</h2>
-      {data?.balances.map((balanceData, index) => (
+      {data?.balances.map((balanceData: any, index: number) => (
         <div key={index}>
           <p>Denom: {balanceData.denom}</p>
           <p>Amount: {balanceData.amount}</p>
