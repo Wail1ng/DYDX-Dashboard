@@ -1,5 +1,5 @@
 import { formatDYDX } from '@/lib/formatter';
-import { getBalances } from '@/services/comsostation';
+import { getBalances } from '@/services/mintscan';
 import { ComponentChart } from '@/components/Chart';
 import { formatDateToLocal } from '@/lib/utils';
 
