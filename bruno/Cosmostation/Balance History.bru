@@ -5,9 +5,14 @@ meta {
 }
 
 get {
-  url: {{base_url}}/v1/dydx/accounts/{{address}}/balances
+  url: {{base_url}}/v1/dydx/accounts/{{address}}/balances?fromDateTime=2024-01-01&toDateTime=2024-10-01
   body: none
   auth: bearer
+}
+
+params:query {
+  fromDateTime: 2024-01-01
+  toDateTime: 2024-10-01
 }
 
 auth:bearer {

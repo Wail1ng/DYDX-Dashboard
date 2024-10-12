@@ -14,31 +14,21 @@ const Dashboard = ({ address }: { address: string }) => {
       <Suspense key={address} fallback={<p>loading CosmosInfo ....</p>}>
         <CosmosInfo address={address} />
       </Suspense>
-
-      <Suspense fallback={<p>loading StakingCard ....</p>}>
-        <StakingCard address={address} />
-      </Suspense>
-      <Suspense fallback={<p>loading BalanceCard ....</p>}>
-        <BalanceCard address={address} />
-      </Suspense>
-
-      <Suspense fallback={<p>loading UnbondingCard ....</p>}>
-        <UnbondingCard delegator_address={address} />
-      </Suspense>
-
-      <Suspense fallback={<p>loading DelegationCard ....</p>}>
-        <DelegationCard delegator_address={address} />
-      </Suspense>
-      <Suspense fallback={<p>loading DelegatorCard ....</p>}>
-      <DelegatorCard delegator_address={address} />
-      </Suspense>
-
-      <Suspense fallback={<p>loading AllBalanceCard ....</p>}>
-        <AllBalanceCard delegator_address={address} /> 
-      </Suspense>
-      <Suspense fallback={<p>loading RewardsCard ....</p>}>
-        <RewardsCard delegator_address={address} />
-      </Suspense>
+      <div className="flex flex-wrap gap-2">
+        <Suspense fallback={<p>loading BalanceCard ....</p>}>
+          <BalanceCard address={address} />
+        </Suspense>
+        <Suspense fallback={<p>loading DelegatorCard ....</p>}>
+          <DelegatorCard delegator_address={address} />
+        </Suspense>
+        <Suspense fallback={<p>loading AllBalanceCard ....</p>}>
+          <AllBalanceCard delegator_address={address} />
+        </Suspense>
+        <Suspense fallback={<p>loading RewardsCard ....</p>}>
+          <RewardsCard delegator_address={address} />
+        </Suspense>
+        {/* You can continue to add more cards here if needed */}
+      </div>
     </>
   );
 };

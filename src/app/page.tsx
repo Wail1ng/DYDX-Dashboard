@@ -13,7 +13,7 @@ export default function HomePage({
     searchParams?.query || "dydx144lgmly4qlgnuftqw8z8lpf80ggdw4ju3e3mcx";
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex flex-col items-center justify-between p-24">
       <div className="z-10 w-full items-center justify-between font-mono text-sm lg:flex flex-col">
         <Search placeholder="Search address..." />
         <Dashboard address={query} />

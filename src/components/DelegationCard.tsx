@@ -1,5 +1,6 @@
 import React from "react";
 import { getValidatorData } from "@/services/dydx";
+import { formatDYDX } from "@/lib/formatter";
 
 export async function DelegationCard({
   delegator_address,
@@ -22,8 +23,8 @@ export async function DelegationCard({
         <div>
           <p>Delegator Address: {data.delegation_response.delegation.delegator_address}</p>
           <p>Validator Address: {data.delegation_response.delegation.validator_address}</p>
-          <p>Shares: {data.delegation_response.delegation.shares}</p>
-          <p>Balance: {data.delegation_response.balance.amount} {data.delegation_response.balance.denom}</p>
+          <p>Shares: {formatDYDX(data.delegation_response.delegation.shares)}</p>
+          <p>Balance: {formatDYDX(data.delegation_response.balance.amount)} {data.delegation_response.balance.denom}</p>
         </div>
       ) : (
         <p>No delegation data available.</p>
