@@ -40,6 +40,20 @@ export const formatNumber = (value: string) => {
   }
 };
 
+export const formatUSDC = (value: string) => {
+  try {
+    const num = BigInt(value);
+    const usdc = Number(num);
+    return usdc.toLocaleString(undefined, { 
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2 
+    });
+  } catch (error) {
+    console.error('Error formatting USDC:', error);
+    return '0.00';
+  }
+};
+
 // return as number
 // export const formatDYDX = (amount: number) => {
 //   // Convertir de atto-DYDX (10^-18) à DYDX

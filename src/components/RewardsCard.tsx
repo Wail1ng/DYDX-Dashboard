@@ -1,26 +1,17 @@
-import React from "react";
+import { formatUSDC } from '@/lib/formatter';
 import { getRewardsData } from "@/services/dydx"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-export async function RewardsCard({
-  delegator_address,
-}: {
-  delegator_address: string;
-}) {
-  const data = await getRewardsData(delegator_address);
+export async function RewardsCard({ address }: { address: string }) {
+const data = await getRewardsData(address);
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Total Available Balance</CardTitle>
+        <CardTitle>Claimable Rewards</CardTitle>
       </CardHeader>
       <CardContent>
-        {data?.total.map((total, index) => (
-          <div key={index}>
-            <p>Amount: {total.amount}</p>
-            <p>Denom: {total.denom}</p>
-          </div>
-        ))}
+      <p>{data?.total?.find(item => item.denom === "ibc/8E27BA2D5493AF5636760E354E46004562C46AB7EC0CC4C1CA14E9E20E2545B5")?.amount}</p>
       </CardContent>
     </Card>
   );

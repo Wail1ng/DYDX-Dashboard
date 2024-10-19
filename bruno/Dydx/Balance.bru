@@ -1,0 +1,15 @@
+meta {
+  name: Balance
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{base_url}}/cosmos/bank/v1beta1/balances/{{address}}/by_denom?denom={{denom}}
+  body: none
+  auth: none
+}
+
+params:query {
+  denom: {{denom}}
+}

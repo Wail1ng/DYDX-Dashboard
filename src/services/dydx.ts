@@ -72,11 +72,11 @@ export async function getBalanceData(address: string, denom: string): Promise<Ba
   }
 }
 
-export async function getRewardsData(delegator_address: string) {
+export async function getRewardsData(address: string) {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
     const result = await fetch(
-      `${BASE_URL}/cosmos/distribution/v1beta1/delegators/${delegator_address}/rewards`,
+      `${BASE_URL}/cosmos/distribution/v1beta1/delegators/${address}/rewards`,
       {
         headers: {
             'Content-Type': 'application/json'

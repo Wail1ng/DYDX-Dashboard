@@ -15,17 +15,15 @@ const Dashboard = ({ address }: { address: string }) => {
         <CosmosInfo address={address} />
       </Suspense>
       <div className="flex flex-wrap gap-2">
-        <Suspense fallback={<p>loading BalanceCard ....</p>}>
+        <Suspense fallback={<p>loading ....</p>}>
           <BalanceCard address={address} />
+          <RewardsCard address={address} />
         </Suspense>
         <Suspense fallback={<p>loading DelegatorCard ....</p>}>
           <DelegatorCard delegator_address={address} />
         </Suspense>
         <Suspense fallback={<p>loading AllBalanceCard ....</p>}>
           <AllBalanceCard delegator_address={address} />
-        </Suspense>
-        <Suspense fallback={<p>loading RewardsCard ....</p>}>
-          <RewardsCard delegator_address={address} />
         </Suspense>
         {/* You can continue to add more cards here if needed */}
       </div>
