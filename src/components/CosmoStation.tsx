@@ -1,9 +1,12 @@
+'use client'
 import { formatDYDX } from '@/lib/formatter';
-import { getBalances } from '@/services/mintscan';
+import { getBalances, getBalances2 } from '@/services/mintscan';
 import { ComponentChart } from '@/components/Chart';
 import { formatDateToLocal } from '@/lib/utils';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { TrendingUp } from 'lucide-react';
+import FilterDate from './RadioDateBalance';
+import { useSearchParams } from 'next/navigation';
 
 type CosmosInfoProps = {
   address: string;
@@ -26,43 +29,52 @@ function transformBalancesToChartData(balances: any[]) {
 }
 
 export default async function CosmosInfo({ address }: CosmosInfoProps) {
+  // const searchParams = useSearchParams();
+  // const fromParam = searchParams.get('fromDateTime');
+  // const toParam = searchParams.get('toDateTime');
+  // const params = {
+  //   fromDateTime: fromParam,
+  //   toDateTime: toParam,
+  //   take: 20
+  // };
+  // console.log('params', params);
 
-  const token = process.env.REACT_APP_COSMOSTATION_API_KEY;
+  const token = process.env.NEXT_PUBLIC_COSMOSTATION_API_KEY;
   if (!token) {
-    throw new Error("REACT_APP_COSMOSTATION_API_KEY is not defined");
+    throw new Error("NEXT_PUBLIC_COSMOSTATION_API_KEY is not defined");
   }
-  // const balances = await getBalances(address, token);
-  const chartData = /* transformBalancesToChartData(balances.balances); */
-    [
-      {
-        "timestamp": "January",
-        "totalDelegation": 5765
-      },
-      {
-        "timestamp": "February",
-        "totalDelegation": 13605
-      },
-      {
-        "timestamp": "March",
-        "totalDelegation": 13770
-      },
-      {
-        "timestamp": "April",
-        "totalDelegation": 13940
-      },
-      {
-        "timestamp": "July",
-        "totalDelegation": 14385
-      },
-      {
-        "timestamp": "August",
-        "totalDelegation": 14180
-      },
-      {
-        "timestamp": "September",
-        "totalDelegation": 14050
-      },
-    ]
+  const balances = await getBalances(address, true);
+  const chartData = transformBalancesToChartData(balances.balances);
+  /*     [
+        {
+          "timestamp": "January",
+          "totalDelegation": 5765
+        },
+        {
+          "timestamp": "February",
+          "totalDelegation": 13605
+        },
+        {
+          "timestamp": "March",
+          "totalDelegation": 13770
+        },
+        {
+          "timestamp": "April",
+          "totalDelegation": 13940
+        },
+        {
+          "timestamp": "July",
+          "totalDelegation": 14385
+        },
+        {
+          "timestamp": "August",
+          "totalDelegation": 14180
+        },
+        {
+          "timestamp": "September",
+          "totalDelegation": 14050
+        },
+      ] */
 
 
   return (
@@ -86,6 +98,7 @@ export default async function CosmosInfo({ address }: CosmosInfoProps) {
               January - June 2024
             </div>
           </div>
+          <FilterDate placeholder="Filter by date" />
         </div>
       </CardFooter>
     </Card>
