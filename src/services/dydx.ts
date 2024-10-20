@@ -22,7 +22,8 @@ export async function getStakingData(address: string, token: string): Promise<Ap
       {
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
+        cache: 'no-store'
       }
     );
 
@@ -62,7 +63,8 @@ export async function getBalanceData(address: string, denom: string): Promise<Ba
       {
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        cache: 'no-store'
     }
     );
     const response = await result.json();
@@ -80,9 +82,12 @@ export async function getRewardsData(address: string) {
       {
         headers: {
             'Content-Type': 'application/json'
-        }
-      }
+        },
+        cache: 'no-store',
+      },
     );
+    console.log("result", result);
+    console.log("`${BASE_URL}/cosmos/distribution/v1beta1/delegators/${address}/rewards`", `${BASE_URL}/cosmos/distribution/v1beta1/delegators/${address}/rewards`);
     const response = await result.json();
     return response;
   } catch (error) {
@@ -99,7 +104,8 @@ export async function getUnbondingData(delegator_address: string) {
       {
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        cache: 'no-store'
       }
     );
     const response = await result.json();
@@ -118,7 +124,8 @@ export async function getDelegatorData(delegator_address: string) {
       {
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        cache: 'no-store'
       }
     );
     const response = await result.json();
@@ -138,7 +145,8 @@ export async function getValidatorData(delegator_address: string) {
       {
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        cache: 'no-store'
       }
     );
     const response = await result.json();
@@ -156,7 +164,8 @@ export async function getAllBalanceData(address: string): Promise<AllBalanceData
       {
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        cache: 'no-store'
       }
     );
     const response = await result.json();
