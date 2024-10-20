@@ -42,8 +42,9 @@ export const formatNumber = (value: string) => {
 
 export const formatUSDC = (value: string) => {
   try {
-    const num = BigInt(value);
-    const usdc = Number(num);
+    const usdc = Number(value) / 1e6;
+    console.log('usdc', usdc)
+    console.log('num', value)
     return usdc.toLocaleString(undefined, { 
       minimumFractionDigits: 2,
       maximumFractionDigits: 2 
