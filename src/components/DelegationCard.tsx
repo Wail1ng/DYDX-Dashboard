@@ -1,36 +1,53 @@
 import React from "react";
-import { getValidatorData } from "@/services/dydx";
-import { formatDYDX } from "@/lib/formatter";
+import { getDelegatorData } from "@/services/dydx";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 
-export async function DelegationCard({
+export async function DelegatorCard({
   delegator_address,
 }: {
   delegator_address: string;
 }) {
-  const data = await getValidatorData(delegator_address);
+  const data = await getDelegatorData(delegator_address);
 
   return (
-    <div
-      style={{
-        border: "1px solid black",
-        padding: "1rem",
-        margin: "1rem 0",
-        textAlign: "left",
-      }}
-    >
-      <h2>Delegation Info</h2>
-      {data?.delegation_response ? (
-        <div>
-          <p>Delegator Address: {data.delegation_response.delegation.delegator_address}</p>
-          <p>Validator Address: {data.delegation_response.delegation.validator_address}</p>
-          <p>Shares: {formatDYDX(data.delegation_response.delegation.shares)}</p>
-          <p>Balance: {formatDYDX(data.delegation_response.balance.amount)} {data.delegation_response.balance.denom}</p>
-        </div>
-      ) : (
-        <p>No delegation data available.</p>
-      )}
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-2xl font-bold">Delegator Info</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ScrollArea className="h-[330px] pr-4">
+          {data?.validators.map((validator: any, index: number) => (
+            <React.Fragment key={index}>
+              {index > 0 && <Separator className="my-4" />}
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <Avatar>
+                    <AvatarFallback>{validator.description.moniker.slice(0, 2)}</AvatarFallback>
+                  </Avatar>
+                  <h3 className="text-lg font-semibold"><a href={validator.description.website} target="_blank">{validator.description.moniker}</a></h3>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <p>{validator.description.details}</p>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Badge variant="secondary">Delegator Shares</Badge>
+                  <span>{parseFloat(validator.delegator_shares).toLocaleString()}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Badge variant="outline">Commission Rate</Badge>
+                  <span>{(parseFloat(validator.commission.commission_rates.rate) * 100).toFixed(2)}%</span>
+                </div>
+              </div>
+            </React.Fragment>
+          ))}
+        </ScrollArea>
+      </CardContent>
+    </Card>
   );
 }
 
-export default DelegationCard;
+export default DelegatorCard;

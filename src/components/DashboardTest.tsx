@@ -3,8 +3,8 @@ import BalanceCard from "./BalanceCard";
 import StakingCard from "./StakingCard";
 import RewardsCard from "./AllBalanceCard";
 import UnbondingCard from "./UnbondingCard";
-import { DelegatorCard } from "./DelegatorCard";
-import DelegationCard from "./DelegationCard";
+import { DelegatorCard } from "./DelegationCard";
+import DelegationCard from "./OldDelegationCard";
 import AllBalanceCard from "./AllBalanceCard";
 
 const Dashboard = ({ address }: { address: string }) => {
