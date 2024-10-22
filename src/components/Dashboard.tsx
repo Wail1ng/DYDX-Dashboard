@@ -8,11 +8,11 @@ import DelegatorCard from "./DelegationCard";
 import DelegationCard from "./OldDelegationCard";
 import AllBalanceCard from "./AllBalanceCard";
 
-const Dashboard = ({ address }: { address: string }) => {
+const Dashboard = ({ address, params }: { address: string, params: { fromDateTime: string, toDateTime: string, take: number } }) => {
   return (
     <>
       <Suspense key={address} fallback={<p>loading CosmosInfo ....</p>}>
-        <CosmosInfo address={address} />
+        <CosmosInfo address={address} params={params} />
       </Suspense>
       <div className="flex flex-wrap gap-2">
         <Suspense fallback={<p>loading ....</p>}>

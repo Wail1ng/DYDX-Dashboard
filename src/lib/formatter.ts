@@ -1,4 +1,4 @@
-import { BalanceData, StakingData } from "@/types/type";
+import { BalanceData } from "@/types/type";
 
 export const balanceFormatter = (data: BalanceData) => ({
     amount: Number(data.balance.amount),

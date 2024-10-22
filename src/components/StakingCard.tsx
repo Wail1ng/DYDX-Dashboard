@@ -4,7 +4,7 @@ import { stakingFormatter, formatNumber } from "@/lib/formatter";
 import { getStakingData } from "@/services/dydx";
 
 const StakingCard = async ({ address }: AddressWallet) => {
-  let data = await getStakingData(address, "token");
+  let data = await getStakingData(address);
 
   const formattedData = data ? stakingFormatter(data) : null;
 

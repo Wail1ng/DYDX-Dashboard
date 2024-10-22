@@ -1,20 +1,13 @@
-import { AllBalanceData, BalanceData } from "@/types/type";
+import { AllBalanceData, ApiResponse, BalanceData, RewardsData, StakingData, UnbondingData, ValidatorData, ValidatorsData } from "@/types/type";
 
 const BASE_URL = 'https://dydx-rest.publicnode.com';
 
-export type ApiResponse<T> = {
-  data: T | null;
-  error: ApiError | null;
-};
-
-export type ApiError = {
-  message: string;
-  code: string;
-  status?: number;
-};
-
-// api.ts
-export async function getStakingData(address: string, token: string): Promise<ApiResponse<any>> {
+/**
+ * Fetches staking data for a given address
+ * @param address The dYdX address to fetch staking data for
+ * @returns A Promise that resolves to an ApiResponse containing StakingData or an ApiError
+ */
+export async function getStakingData(address: string): Promise<ApiResponse<StakingData>> {
   try {
     await new Promise((resolve) => setTimeout(resolve, 3000));
     const response = await fetch(
@@ -54,6 +47,12 @@ export async function getStakingData(address: string, token: string): Promise<Ap
   }
 }
 
+/**
+ * Fetches balance data for a given address and denom
+ * @param address The dYdX address to fetch balance data for
+ * @param denom The denom to fetch balance data for
+ * @returns A Promise that resolves to an ApiResponse containing BalanceData or an ApiError
+ */
 export async function getBalanceData(address: string, denom: string): Promise<BalanceData> {
   denom = "adydx"
   await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -74,7 +73,12 @@ export async function getBalanceData(address: string, denom: string): Promise<Ba
   }
 }
 
-export async function getRewardsData(address: string) {
+/**
+ * Fetches rewards data for a given address
+ * @param address The dYdX address to fetch rewards data for
+ * @returns A Promise that resolves to an ApiResponse containing RewardsData or an ApiError
+ */
+export async function getRewardsData(address: string): Promise<ApiResponse<RewardsData>> {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
     const result = await fetch(
@@ -86,8 +90,6 @@ export async function getRewardsData(address: string) {
         cache: 'no-store',
       },
     );
-    console.log("result", result);
-    console.log("`${BASE_URL}/cosmos/distribution/v1beta1/delegators/${address}/rewards`", `${BASE_URL}/cosmos/distribution/v1beta1/delegators/${address}/rewards`);
     const response = await result.json();
     return response;
   } catch (error) {
@@ -96,7 +98,12 @@ export async function getRewardsData(address: string) {
   }
 }
 
-export async function getUnbondingData(delegator_address: string) {
+/**
+ * Fetches unbonding data for a given address
+ * @param delegator_address The dYdX delegator_address to fetch unbonding data for
+ * @returns A Promise that resolves to an ApiResponse containing UnbondingData or an ApiError
+ */
+export async function getUnbondingData(delegator_address: string): Promise<ApiResponse<UnbondingData>> {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
     const result = await fetch(
@@ -116,11 +123,16 @@ export async function getUnbondingData(delegator_address: string) {
   }
 }
 
-export async function getDelegatorData(delegator_address: string) {
+/**
+ * Fetches validators data for a given delegator address
+ * @param delegator_address The dYdX address to fetch validators data for
+ * @returns A Promise that resolves to an ApiResponse containing ValidatorsData or an ApiError
+ */
+export async function getDelegatorData(delegator_address: string): Promise<ApiResponse<ValidatorsData>> {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
     const result = await fetch(
-      `${BASE_URL}/cosmos/staking/v1beta1/delegators/${delegator_address}/validators`,
+      `${BASE_URL}/cosmos/staking/v1beta1/delegators/${delegator_address}2/validators`,
       {
         headers: {
             'Content-Type': 'application/json'
@@ -129,14 +141,40 @@ export async function getDelegatorData(delegator_address: string) {
       }
     );
     const response = await result.json();
-    return response;
+    if (!response.ok) {
+      return {
+        data: null,
+        error: {
+          message: `Error: ${response.statusText}`,
+          code: response.code,
+          status: response.status
+        }
+      };
+    }
+
+    const data = await response.json();
+    return {
+      data,
+      error: null
+    };
   } catch (error) {
-    console.error('Erreur lors de la récupération des chaînes:', error);
-    throw error;
+    return {
+      data: null,
+      error: {
+        message: error instanceof Error ? error.message : 'An unknown error occurred',
+        code: 'NETWORK_ERROR'
+      }
+    };
   }
 }
 
-export async function getValidatorData(delegator_address: string) {
+/**
+ * Fetches validator data for a given delegator address and validator address
+ * @param delegator_address The dYdX address to fetch validator data for
+ * @param validator_address The validator address to fetch data for
+ * @returns A Promise that resolves to an ApiResponse containing ValidatorData or an ApiError
+ */ 
+export async function getValidatorData(delegator_address: string, validator_address: string): Promise<ApiResponse<ValidatorData>> {
   const validator_addr = "dydxvaloper1rqhxemv6e5x43uny8qdyq78zneuk49pe5gkltz"
   await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
@@ -150,12 +188,30 @@ export async function getValidatorData(delegator_address: string) {
       }
     );
     const response = await result.json();
+/*     {
+      "delegation_response": {
+        "delegation": {
+          "delegator_address": "dydx144lgmly4qlgnuftqw8z8lpf80ggdw4ju3e3mcx",
+          "validator_address": "dydxvaloper1rqhxemv6e5x43uny8qdyq78zneuk49pe5gkltz",
+          "shares": "2500000000000000000000.000000000000000000"
+        },
+        "balance": {
+          "denom": "adydx",
+          "amount": "2500000000000000000000"
+        }
+      }
+    } */
     return response;
   } catch (error) {
     throw error;
   }
 }
 
+/**
+ * Fetches all balance data for a given address
+ * @param address The dYdX address to fetch balance data for
+ * @returns A Promise that resolves to an ApiResponse containing AllBalanceData or an ApiError
+ */
 export async function getAllBalanceData(address: string): Promise<AllBalanceData> {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
