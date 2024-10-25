@@ -1,12 +1,14 @@
 import React from "react";
 import { getDelegatorData } from "@/services/dydx";
+import { getStakingData } from "@/services/dydx";
+import { formatNumber } from "@/lib/formatter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 
-export async function DelegatorCard({
+export async function DelegationCard({
   delegator_address,
 }: {
   delegator_address: string;
@@ -47,4 +49,4 @@ export async function DelegatorCard({
   );
 }
 
-export default DelegatorCard;
+export default DelegationCard;

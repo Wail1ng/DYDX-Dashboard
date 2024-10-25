@@ -4,8 +4,7 @@ import BalanceCard from "./BalanceCard";
 import StakingCard from "./StakingCard";
 import RewardsCard from "./RewardsCard";
 import UnbondingCard from "./UnbondingCard";
-import DelegatorCard from "./DelegationCard";
-import DelegationCard from "./OldDelegationCard";
+import DelegationCard from "./DelegationCard";
 import AllBalanceCard from "./AllBalanceCard";
 
 const Dashboard = ({ address, params }: { address: string, params: { fromDateTime: string, toDateTime: string, take: number } }) => {
@@ -20,10 +19,13 @@ const Dashboard = ({ address, params }: { address: string, params: { fromDateTim
           <RewardsCard address={address} />
         </Suspense>
         <Suspense fallback={<p>loading DelegatorCard ....</p>}>
-          <DelegatorCard delegator_address={address} />
+          <DelegationCard delegator_address={address} />
         </Suspense>
         <Suspense fallback={<p>loading AllBalanceCard ....</p>}>
           <AllBalanceCard delegator_address={address} />
+        </Suspense>
+        <Suspense fallback={<p>loading StakingInfo ....</p>}>
+          <StakingCard address={address} />
         </Suspense>
         {/* You can continue to add more cards here if needed */}
       </div>

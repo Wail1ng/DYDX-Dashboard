@@ -5,14 +5,18 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 export async function BalanceCard({ address }: { address: string }) {
   const data = await getBalanceData(address, "dydx");
 
+  
   return (
     <Card>
       <CardHeader>
         <CardTitle>Available Balance</CardTitle>
       </CardHeader>
       <CardContent>
+      <div className="flex items-center space-x-2 mb-2">
+        <img src="dydx-circle.svg" alt="DYDX" width={24} height={24} />
         <p>{formatNumber(data?.balance?.amount)} DYDX</p>
-      </CardContent>
+      </div>
+        </CardContent>
     </Card>
   );
 }

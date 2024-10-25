@@ -2,7 +2,7 @@ import React from "react";
 import { getValidatorData } from "@/services/dydx";
 import { formatDYDX } from "@/lib/formatter";
 
-export async function DelegationCard({
+export async function OldDelegationCard({
   delegator_address,
 }: {
   delegator_address: string;
@@ -33,4 +33,4 @@ export async function DelegationCard({
   );
 }
 
-export default DelegationCard;
+export default OldDelegationCard;
