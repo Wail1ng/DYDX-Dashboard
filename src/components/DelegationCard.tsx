@@ -20,7 +20,7 @@ export async function DelegatorCard({
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[330px] pr-4">
-          {data?.validators.map((validator: any, index: number) => (
+          {data?.data?.validators.map((validator: any, index: number) => (
             <React.Fragment key={index}>
               {index > 0 && <Separator className="my-4" />}
               <div className="space-y-2">

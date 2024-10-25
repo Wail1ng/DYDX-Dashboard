@@ -131,8 +131,8 @@ export async function getUnbondingData(delegator_address: string): Promise<ApiRe
 export async function getDelegatorData(delegator_address: string): Promise<ApiResponse<ValidatorsData>> {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
-    const result = await fetch(
-      `${BASE_URL}/cosmos/staking/v1beta1/delegators/${delegator_address}2/validators`,
+    const response = await fetch(
+      `${BASE_URL}/cosmos/staking/v1beta1/delegators/${delegator_address}/validators`,
       {
         headers: {
             'Content-Type': 'application/json'
@@ -140,18 +140,16 @@ export async function getDelegatorData(delegator_address: string): Promise<ApiRe
         cache: 'no-store'
       }
     );
-    const response = await result.json();
     if (!response.ok) {
       return {
         data: null,
         error: {
           message: `Error: ${response.statusText}`,
-          code: response.code,
+          code: response.status.toString(),
           status: response.status
         }
       };
     }
-
     const data = await response.json();
     return {
       data,
@@ -188,19 +186,6 @@ export async function getValidatorData(delegator_address: string, validator_addr
       }
     );
     const response = await result.json();
-/*     {
-      "delegation_response": {
-        "delegation": {
-          "delegator_address": "dydx144lgmly4qlgnuftqw8z8lpf80ggdw4ju3e3mcx",
-          "validator_address": "dydxvaloper1rqhxemv6e5x43uny8qdyq78zneuk49pe5gkltz",
-          "shares": "2500000000000000000000.000000000000000000"
-        },
-        "balance": {
-          "denom": "adydx",
-          "amount": "2500000000000000000000"
-        }
-      }
-    } */
     return response;
   } catch (error) {
     throw error;
