@@ -16,7 +16,7 @@ export async function DelegatorCard({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">Staking</CardTitle>
+        <CardTitle className="text-2xl font-bold">Delegator Info</CardTitle>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[330px] pr-4">
@@ -31,7 +31,10 @@ export async function DelegatorCard({
                   <h3 className="text-lg font-semibold"><a href={validator.description.website} target="_blank">{validator.description.moniker}</a></h3>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Badge variant="secondary">Delegation</Badge>
+                  <p>{validator.description.details}</p>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Badge variant="secondary">Delegator Shares</Badge>
                   <span>{parseFloat(validator.delegator_shares).toLocaleString()}</span>
                 </div>
                 <div className="flex items-center space-x-2">

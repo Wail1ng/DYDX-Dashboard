@@ -17,8 +17,8 @@ export async function RewardsCard({
       <CardContent>
         {data?.balances.map((balanceData: any, index: number) => (
           <div key={index}>
-            <p>Denom: {balanceData.denom}</p>
-            <p>Amount: {balanceData.amount}</p>
+            <p>{balanceData.denom}</p>
+            <p>{balanceData.amount}</p>
           </div>
         ))}
       </CardContent>
