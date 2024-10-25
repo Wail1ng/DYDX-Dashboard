@@ -20,10 +20,10 @@ export default function Search({ placeholder }: { placeholder: string }) {
     };
 
     const handleSearch = () => {
-        if (!validateAddress(searchTerm)) {
+        /* if (!validateAddress(searchTerm)) {
             setError('Invalid blockchain address. Please enter a valid address.');
-            return;
-        }
+            return; 
+        }*/
         setError('');
 
         const params = new URLSearchParams(searchParams);
