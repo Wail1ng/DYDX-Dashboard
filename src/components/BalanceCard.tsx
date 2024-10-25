@@ -8,10 +8,10 @@ export async function BalanceCard({ address }: { address: string }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>DYDX Balance</CardTitle>
+        <CardTitle>Available Balance</CardTitle>
       </CardHeader>
       <CardContent>
-        <p>{formatNumber(data?.balance?.amount)}</p>
+        <p>{formatNumber(data?.balance?.amount)} DYDX</p>
       </CardContent>
     </Card>
   );

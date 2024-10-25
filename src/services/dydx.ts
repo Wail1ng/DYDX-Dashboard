@@ -136,7 +136,7 @@ export async function getDelegatorData(delegator_address: string) {
   }
 }
 
-export async function getValidatorData(delegator_address: string) {
+export async function getDelegationData(delegator_address: string) {
   const validator_addr = "dydxvaloper1rqhxemv6e5x43uny8qdyq78zneuk49pe5gkltz"
   await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
