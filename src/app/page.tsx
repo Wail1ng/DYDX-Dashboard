@@ -26,13 +26,16 @@ export default function HomePage({
     take: 20
   };
 
-
   return (
     <main className="flex flex-col items-center justify-between p-24">
       <div className="z-10 w-full items-center justify-between font-mono text-sm lg:flex flex-col">
-        <Search placeholder="Search address..." />
-        <FilterDate placeholder="Filter by date" />
-        {query && <Dashboard address={query} params={params} />}
+        <Search placeholder={defaultAddress} />
+        {!query && <p className="text-gray-500">Please enter a wallet address to view dashboard</p>}
+        {query && (
+          <>
+            <FilterDate placeholder="Filter by date" />
+            <Dashboard address={query} params={params} />
+          </>)}
       </div>
     </main>
   );

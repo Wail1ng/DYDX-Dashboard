@@ -8,20 +8,44 @@ type CosmosInfoProps = {
 }
 
 export default async function CosmosInfo({ address, params }: CosmosInfoProps) {
-
-  const balances = await getBalances(address, true, params);
-
-  return (
-    <Card className="">
-      <CardHeader>
-        <CardTitle>Area Chart</CardTitle>
-        <CardDescription>
-          Showing total visitors for the last 6 months
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ComponentChart chartData={balances} />
-      </CardContent>
-    </Card>
-  );
+  try {
+    const balances = await getBalances(address, true, params);
+    // @ts-ignore
+    if (balances.length === 0) {
+      return (
+        <Card className="bg-gray-50">
+          <CardHeader>
+            <CardTitle>Available Balance Chart</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-500">No balance data available</p>
+          </CardContent>
+        </Card>
+      )
+    }
+    return (
+      <Card className="">
+        <CardHeader>
+          <CardTitle>Available Balance Chart</CardTitle>
+          <CardDescription>
+            Showing total visitors for the last 6 months
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ComponentChart chartData={balances} />
+        </CardContent>
+      </Card>
+    );
+  } catch (error) {
+    return (
+      <Card className="bg-red-50">
+        <CardHeader>
+          <CardTitle>Available Balance Chart</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-red-500">Error loading balances graph data</p>
+        </CardContent>
+      </Card>
+    );
+  }
 }

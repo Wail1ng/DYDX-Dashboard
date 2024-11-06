@@ -29,6 +29,7 @@ export async function getBalances(
   if (!token) {
     throw new Error("NEXT_PUBLIC_COSMOSTATION_API_KEY is not defined");
   }
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
    while (hasMoreData) {
      try {
