@@ -1,19 +1,23 @@
 import React from "react";
 import { getDelegatorData } from "@/services/dydx";
-import { getStakingData } from "@/services/dydx";
 import { formatNumber } from "@/lib/formatter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 
 export async function DelegationCard({
   delegator_address,
 }: {
   delegator_address: string;
 }) {
-
   try {
     const data = await getDelegatorData(delegator_address);
 
@@ -21,42 +25,77 @@ export async function DelegationCard({
       return (
         <Card className="bg-gray-50">
           <CardHeader>
-            <CardTitle>Delegation</CardTitle>
+            <CardTitle>Validators data</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-500">No Delegation data available</p>
+            <p className="text-gray-500">No validators data available</p>
           </CardContent>
         </Card>
       );
     }
+
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Staking</CardTitle>
+          <CardTitle className="text-2xl font-bold">Validators data</CardTitle>
         </CardHeader>
         <CardContent>
-          <ScrollArea className="h-[330px] pr-4">
-            {data?.data?.validators.map((validator: any, index: number) => (
-              <React.Fragment key={index}>
-                {index > 0 && <Separator className="my-4" />}
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <Avatar>
-                      <AvatarFallback>{validator.description.moniker.slice(0, 2)}</AvatarFallback>
-                    </Avatar>
-                    <h3 className="text-lg font-semibold"><a href={validator.description.website} target="_blank">{validator.description.moniker}</a></h3>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Badge variant="secondary">Delegation</Badge>
-                    <span>{parseFloat(validator.delegator_shares).toLocaleString()}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Badge variant="outline">Commission Rate</Badge>
-                    <span>{(parseFloat(validator.commission.commission_rates.rate) * 100).toFixed(2)}%</span>
-                  </div>
-                </div>
-              </React.Fragment>
-            ))}
+          <ScrollArea className="h-[400px] w-full">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[250px]">Validator</TableHead>
+                  <TableHead className="text-right">Staked Amount</TableHead>
+                  <TableHead className="text-right">Commission</TableHead>
+                  <TableHead className="text-right">Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data?.data?.validators.map((validator: any, index: number) => (
+                  <TableRow key={validator.operator_address}>
+                    <TableCell className="font-medium">
+                      <div className="flex items-center space-x-3">
+                        <Avatar className="h-8 w-8">
+                          <AvatarFallback>
+                            {validator.description.moniker.slice(0, 2)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col">
+                          <a
+                            href={validator.description.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-medium hover:underline"
+                          >
+                            {validator.description.moniker}
+                          </a>
+                          <span className="text-sm text-gray-500 truncate max-w-[200px]">
+                            {validator.description.details}
+                          </span>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="font-medium">
+                        {parseFloat(validator.delegator_shares).toLocaleString()}
+                      </div>
+                      <div className="text-sm text-gray-500">DYDX</div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {(parseFloat(validator.commission.commission_rates.rate) * 100).toFixed(2)}%
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${validator.status === "BOND_STATUS_BONDED"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-yellow-100 text-yellow-800"
+                        }`}>
+                        {validator.status === "BOND_STATUS_BONDED" ? "Active" : "Inactive"}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </ScrollArea>
         </CardContent>
       </Card>
@@ -65,10 +104,10 @@ export async function DelegationCard({
     return (
       <Card className="bg-gray-50">
         <CardHeader>
-          <CardTitle>Delegation</CardTitle>
+          <CardTitle>Validators data</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-red-500">Error loading Delegation data</p>
+          <p className="text-red-500">Error loading validators data</p>
         </CardContent>
       </Card>
     );

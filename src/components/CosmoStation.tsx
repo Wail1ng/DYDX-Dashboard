@@ -1,6 +1,7 @@
 import { getBalances } from '@/services/mintscan';
 import { ComponentChart } from '@/components/Chart';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { formatDate } from 'date-fns';
 
 type CosmosInfoProps = {
   address: string;
@@ -28,7 +29,7 @@ export default async function CosmosInfo({ address, params }: CosmosInfoProps) {
         <CardHeader>
           <CardTitle>Available Balance Chart</CardTitle>
           <CardDescription>
-            Showing total visitors for the last 6 months
+            Showing total available balance for the date between {formatDate(params.fromDateTime, 'MMM d, yyyy')} to {formatDate(params.toDateTime, 'MMM d, yyyy')}
           </CardDescription>
         </CardHeader>
         <CardContent>
