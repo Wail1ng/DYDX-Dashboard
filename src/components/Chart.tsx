@@ -1,6 +1,5 @@
 "use client"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
-
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
@@ -18,24 +17,52 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function ComponentChart({ chartData }: { chartData: any }) {
+
+  // Réverser les données pour afficher de la plus récente à la plus ancienne
+  const reversedData = [...chartData].reverse();
+
+  // Vérifier les ticks et les données dans la console pour le débogage
+  console.log("Reversed Data:", reversedData);
+
   return (
     <ChartContainer config={chartConfig}>
       <AreaChart
         accessibilityLayer
-        data={chartData}
+        data={reversedData}
         margin={{
           left: 12,
           right: 12,
         }}
       >
         <CartesianGrid vertical={false} />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          tickMargin={8}
+          allowDecimals={false}
+          domain={[
+            (dataMin) => Math.floor(dataMin / 100) * 75,
+            (dataMax) => Math.ceil(dataMax / 100) * 125,
+          ]}
+          tickFormatter={(value) => (value >= 1000 ? `${value / 1000}k` : value)}
+          scale="linear"
+          nice 
+        />
         <XAxis
           dataKey="timestamp"
           tickLine={false}
           axisLine={false}
           tickMargin={8}
-          tickFormatter={(value) => value.slice(0, 3)}
+          interval={Math.floor(chartData.length / 5)} // Dynamically space out ticks
+          tickFormatter={(value) => {
+            const date = new Date(value);
+            return date.toLocaleDateString('fr-FR', {
+              month: 'short', // Abbreviated month (e.g., Jan)
+              day: 'numeric', // Day of the month
+            });
+          }}
         />
+
         <ChartTooltip
           cursor={false}
           content={<ChartTooltipContent indicator="line" />}
@@ -49,5 +76,5 @@ export function ComponentChart({ chartData }: { chartData: any }) {
         />
       </AreaChart>
     </ChartContainer>
-  )
+  );
 }
