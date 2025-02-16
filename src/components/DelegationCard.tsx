@@ -135,3 +135,4 @@ export async function DelegationCard({
                   <TableCell>
                     <div className="flex items-center space-x-3">
                       <Avatar className="h-8 w-8"
+      </Card>
