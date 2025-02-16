@@ -107,37 +107,39 @@ export async function DelegationCard({
   }
 
   // Render the table with validators and staked balances
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold">Staked Balances</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <ScrollArea className="h-[400px] w-full">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="text-center">Staked Amount</TableHead>
-                <TableHead className="text-center">Validator</TableHead>
-                <TableHead className="text-right">Commission</TableHead>
-                <TableHead className="text-right">Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {validatorsWithBalance.map((validator, index) => (
-                <TableRow key={validator.operator_address}>
-                  <TableCell className="text-center">
-                    <div className="font-medium">
-                      {/* Using formatNumber to format the staked balance */}
-                      {formatNumber(parseFloat(validator.stakedBalance || "0"))} DYDX
-                    </div>
-                  </TableCell>
-                  </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </ScrollArea>
-      </CardContent>
-    </Card>
-  );
-}    
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold">Staked Balances</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ScrollArea className="h-[400px] w-full">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-center">Staked Amount</TableHead>
+                  <TableHead className="text-center">Validator</TableHead>
+                  <TableHead className="text-right">Commission</TableHead>
+                  <TableHead className="text-right">Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {validatorsWithBalance.map((validator, index) => (
+                  <TableRow key={validator.operator_address}>
+                    <TableCell className="text-center">
+                      <div className="font-medium">
+                        {/* Using formatNumber to format the staked balance */}
+                        {formatNumber(parseFloat(validator.stakedBalance || "0"))} DYDX
+                      </div>
+                    </TableCell>
+                    </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </ScrollArea>
+        </CardContent>
+      </Card>
+    );
+}   
+  
+export default DelegationCard;  
