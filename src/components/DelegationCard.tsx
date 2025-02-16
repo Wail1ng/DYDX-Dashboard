@@ -132,7 +132,12 @@ export async function DelegationCard({
                       {formatNumber(parseFloat(validator.stakedBalance || "0"))} DYDX
                     </div>
                   </TableCell>
-                  <TableCell>
-                    <div className="flex items-center space-x-3">
-                      <Avatar className="h-8 w-8"
-      </Card>
+                  </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </ScrollArea>
+      </CardContent>
+    </Card>
+  );
+}    
